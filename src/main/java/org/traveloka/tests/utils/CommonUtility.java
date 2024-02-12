@@ -2,6 +2,7 @@ package org.traveloka.tests.utils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import net.serenitybdd.core.steps.UIInteractions;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("org.traveloka.tests.utils.CommonUtility")
 public class CommonUtility extends UIInteractions {
 
-    public ChromeOptions initializeChrome(){
+    public WebDriver initializeChrome(){
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         WebDriverManager.chromedriver().setup();
 
@@ -17,10 +18,11 @@ public class CommonUtility extends UIInteractions {
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("start-maximized");
 
-        return chromeOptions;
+        return new ChromeDriver(chromeOptions);
     }
     public void openPage(String url){
-        setDriver(new ChromeDriver(initializeChrome()));
+        initializeChrome().close();
         openUrl(url);
+        getDriver().manage().window().maximize();
     }
 }
