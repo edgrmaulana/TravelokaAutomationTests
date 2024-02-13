@@ -1,8 +1,6 @@
 package org.traveloka.tests.pages;
 
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.mockito.internal.matchers.Find;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.traveloka.tests.utils.UIUtility;
 
@@ -29,21 +27,51 @@ public class TravelokaPage extends UIUtility {
 
     @FindBy(xpath = "//*[@id='__next']/div/div[5]/div[2]/div[2]/div/div/div[1]/div/div/div[3]/div[3]/div")
     WebElementFacade continueChooseCar;
-    //choosing absolute xpath because seems like no unique identifier found
 
     @FindBy(xpath = "//*[@id='__next']/div/div[5]/div/div[4]/div/div[2]/div[2]/div[1]")
     WebElementFacade continueChosenCarProvider;
-    //choosing absolute xpath because seems like no unique identifier found
+
 
     @FindBy(xpath = "//div[@role='radio']//div[@dir='auto' and contains(text(), 'Rental Office')]")
     WebElementFacade rentalOfficeButton;
 
-    @FindBy(xpath = "//*[@id='RENTAL_DROPOFF_LOCATION']//div[@role='radio']//div[@dir='auto' and contains(text(), 'Other Locations')]")
+    @FindBy(xpath = "//*[@id='RENTAL_DROPOFF_LOCATION']/div/div/div[5]/div[1]/div[2]/div")
     WebElementFacade rentalDropOffLocation;
 
-    @FindBy(css = "//input[@placeholder='Search location or address' and @value='']")
-    WebElementFacade inputLocationDropOff;
+    @FindBy(xpath = "//textarea[@placeholder='Additional notes (optional)']")
+    WebElementFacade inputAdditionalRequestDropOff;
 
+    @FindBy(xpath = "//*[@id='__next']/div/div[5]/div/div[1]/div/div[5]/div[3]/div")
+    WebElementFacade continueButtonPdp;
+
+    @FindBy(xpath = "//*[@id='__next']/div[2]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[1]/div/div[1]/input")
+    WebElementFacade inputContactName;
+
+    @FindBy(xpath = "//*[@id='__next']/div[2]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[1]/div[1]/input")
+    WebElementFacade inputContactPhoneNumber;
+
+    @FindBy(xpath = "//*[@id='__next']/div[2]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div[1]/input")
+    WebElementFacade inputContactEmail;
+
+    @FindBy(xpath = "//*[@id='adultForm0']/div/div/div[2]/div[2]/div/div[1]/input")
+    WebElementFacade driverName;
+
+    @FindBy(xpath = "//*[@id='adultForm0']/div/div/div[2]/div[3]/div[1]/input")
+    WebElementFacade driverPhoneNumber;
+
+    @FindBy(xpath = "//*[@id='__next']/div[2]/div[2]/div[1]/div[4]/div/div/div/div[2]")
+    WebElementFacade continueButtonContactDetails;
+
+    @FindBy(xpath = "//*[@id='__next']/div[2]/div[2]/div[1]/div[9]/div/div/div[3]/div[1]/textarea")
+    WebElementFacade specialRequestCar;
+
+    @FindBy(xpath = "//*[@id='__next']/div[2]/div[2]/div[1]/div[14]/div/div/div")
+    WebElementFacade continueToPaymentButton;
+
+    @FindBy(xpath = "//*[@id='__next']/div/div[2]/div[1]/div[2]/div/div[1]/div[2]/div/div[7]/div[2]")
+    WebElementFacade buttonPayWithTransfer;
+
+//  choosing absolute xpath because seems like no unique identifier found
 
 //    ----------------> Click Action
 
@@ -90,11 +118,88 @@ public class TravelokaPage extends UIUtility {
 
     public void clickOnRentalDropoffButton(String value){
         if (value.equalsIgnoreCase("otherlocation")){
-            scrollPage("40");
+            scrollPage("200");
             clickByWebElementFacade(rentalDropOffLocation);
-            inputText("Jakarta", inputLocationDropOff);
-            clickByXPath("//*[@id='RENTAL_DROPOFF_LOCATION']//div[@aria-label='Jakarta']");
+            clickByXPath("//*[@id='RENTAL_DROPOFF_LOCATION']/div/div/div[5]/div[2]/div/div/div[1]/div/div[1]/input");
+            clickByXPath("//*[@id='RENTAL_DROPOFF_LOCATION']/div/div/div[5]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div[3]/div[1]/h3");
         }
     }
 
+    public void inputTextAdditionalRequestDropoff(String value){
+        if (!value.isBlank()){
+            inputText(value, inputAdditionalRequestDropOff);
+        }
+    }
+
+    public void clickContinuePdp(){
+        scrollPage("200");
+        clickByWebElementFacade(continueButtonPdp);
+    }
+
+    public void inputTextContactName(String value){
+        clickByWebElementFacade(inputContactName);
+        inputText(value, inputContactName);
+    }
+
+    public void inputTextContactPhoneNumber(String value){
+        clickByWebElementFacade(inputContactPhoneNumber);
+        inputText(value, inputContactPhoneNumber);
+    }
+
+    public void inputTextContactEmail(String value){
+        clickByWebElementFacade(inputContactEmail);
+        inputText(value, inputContactEmail);
+    }
+
+    public void clickPunctuationDropdown(String value){
+        scrollPage("500");
+        clickByXPath("//*[@id='adultForm0']/div/div/div[2]/div[1]/div/div/select");
+        if (value.equalsIgnoreCase("mr")){
+            clickByXPath("//*[@id='adultForm0']/div/div/div[2]/div[1]/div/div/select//option[1]");
+        }
+    }
+
+    public void inputTextDriverName(String value){
+        clickByWebElementFacade(driverName);
+        inputText(value, driverName);
+    }
+
+    public void inputTextDriverPhoneNumber(String value){
+        clickByWebElementFacade(driverPhoneNumber);
+        inputText(value, driverPhoneNumber);
+    }
+
+    public void clickContinueButtonContactDetailsPage(){
+        clickByWebElementFacade(continueButtonContactDetails);
+    }
+
+    public void inputTextSpecialRequestCar(String value){
+        scrollPage("500");
+        clickByWebElementFacade(specialRequestCar);
+        inputText(value, specialRequestCar);
+    }
+
+    public void clickOnCheckRequirementsForRental(){
+        scrollPage("100");
+        clickByXPath("//*[@id='__next']/div[2]/div[2]/div[1]/div[11]/div/div/div/div[2]");
+        clickByXPath("/html/body/div[2]/div/div[2]/div/div[2]/div/div[1]/div[2]");
+        clickByXPath("/html/body/div[2]/div/div[2]/div/div[2]/div/div[3]/div[2]");
+    }
+
+    public void clickContinueToPayment(){
+        scrollPage("500");
+        clickByWebElementFacade(continueToPaymentButton);
+    }
+
+    public void clickContinueBookingDetailsCorrect(){
+        clickByXPath("/html/body/div[2]/div/div[2]/div/div[2]/div/div[3]/div[2]");
+    }
+
+    public void clickOnBankTransferPaymentMethod(){
+        clickByXPath("//*[@id='__next']/div/div[2]/div[1]/div[2]/div/div[1]/div[1]/div/div/div[3]/div/div");
+    }
+
+    public void clickOnPayWithTransferButton(){
+        clickByWebElementFacade(buttonPayWithTransfer);
+    }
 }

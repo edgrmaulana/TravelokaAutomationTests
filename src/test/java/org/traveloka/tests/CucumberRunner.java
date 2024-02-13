@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
                 "org.traveloka.tests.hooks"},
         objectFactory = SerenityObjectFactory.class,
         stepNotifications = true,
-        tags = "@TravelokaTestsFeature")
+        tags = "@OneToFiftyTestsFeature")
 public class CucumberRunner {
 
 }

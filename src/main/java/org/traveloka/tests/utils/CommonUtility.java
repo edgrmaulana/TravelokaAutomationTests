@@ -25,4 +25,8 @@ public class CommonUtility extends UIInteractions {
         openUrl(url);
         getDriver().manage().window().maximize();
     }
+
+    public String getCurrentPageUrl(){
+        return getDriver().getCurrentUrl();
+    }
 }
